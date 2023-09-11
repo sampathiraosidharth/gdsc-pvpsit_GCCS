@@ -59,10 +59,11 @@
                   <th scope="col"><b>Sr. No.</b></th>
                   <th scope="col"><b>Name</b></th>
                   <th scope="col"><b>Redemption Status</b></th>
-                  <th scope="col"><b>Course Completed</b></th>
+                  <th scope="col"><b>Courses Completed</b></th>
                   <th scope="col"><b>GenAI Completed</b></th>
                   <th scope="col"><b>Skill Badges Completed</b></th>
                   <th scope="col"><b>Total Completion</b></th>
+                  <th scope="col"><b>Profile url</b></th>
                 </tr>
               </thead>
               <tbody id="gccp_body">
@@ -102,6 +103,7 @@
                         <td>${d["# of GenAI Game Completed"]}</td>
                         <td>${d["# of Skill Badges Completed"]}</td>
                         <td>${d["Total Completions of both Pathways"]}</td>
+                        <td><a href="${d["Google Cloud Skills Boost Profile URL"]}">${d["Student Name"]}</a></td>
                    </tr>
                       `
                   })
