@@ -88,23 +88,24 @@
                   let total_started = 0
                   if(filter !== ""){
                       data = data.filter((el)=>{
-                          return el["Student Name"].toLowerCase().includes(filter.toLowerCase());
+                          return el["User Name"].toLowerCase().includes(filter.toLowerCase());
                       })
                   }
                   data.sort(compare);
                   let total_reg = data.length;
                   let html = "";
                   data.forEach((d,i)=>{
-                      total_started += d["Redemption Status"] === "Yes"?1:0;
+                      total_started += d["Campaign Code Redemption Status"] === "Yes"?1:0;
                       html += `
                       <tr>
                         <th>${i + 1}</th>
-                        <td><a href="${d["Google Cloud Skills Boost Profile URL"]}" target="_blank" style="color:#000000;">${d["Student Name"]}</a></td>
-                        <td>${d["Redemption Status"] === "Yes"?"✅":"⚠️"}</td>
-                        <td>${d["# of Courses Completed"]}</td>
-                        <td>${d["# of GenAI Game Completed"]}</td>
-                        <td>${d["# of Skill Badges Completed"]}</td>
-                        <td>${d["Total Completions of both Pathways"]}</td>
+                        <td>${d["User Email"]}</td>
+                        <td><a href="${d["Google Cloud Skills Boost Profile URL"]}" target="_blank" style="color:#000000;">${d["User Name"]}</a></td>
+                        <td>${d["Campaign Code Redemption Status"] === "Yes"?"✅":"⚠️"}</td>
+                        <td>${d["Prompt Design in Vertex AI Completion"]"1"?"✅":"⚠️"}</td>
+                        <td>${d["Develop GenAI Apps with Gemini and Streamlit Completion"]"1"?"✅":"⚠️"}</td>
+                        <td>${d["Gen AI Arcade Game Completion"]"1"?"✅":"⚠️"}</td>
+                        <td>${d["All 3 Pathways Completed"]=== "Yes"?"✅":"⚠️"}</td>
                         <td><a href="${d["Google Cloud Skills Boost Profile URL"]} target="_blank"">${d["Student Name"]}</a></td>
                    </tr>
                       `
