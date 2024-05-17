@@ -20,7 +20,7 @@ def csv_to_json(input_file, output_file):
         json.dump(data, jsonfile, indent=4)
 
 # Replace 'input_file.csv' with the path to your CSV file
-input_file = '/Users/sidharthsrao/Downloads/gdsc-pvpsit_GCCS/Prasad V. Potluri Siddhartha Institute Of Technology - Vijayawada [16 May].csv'
+input_file = '/Users/sidharthsrao/Downloads/gdsc-pvpsit_GCCS/Prasad V. Potluri Siddhartha Institute Of Technology - Vijayawada [17 May].csv'
 # Replace 'output_file.json' with the desired path for your output JSON file
 output_file = f'{dateutil.utils.today()}.json'
 
