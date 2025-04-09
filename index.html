@@ -69,47 +69,106 @@
       </table>
 
       <script>
-        const updateData = async (filter) => {
-          let data = await (await fetch('./data.json')).json();
-          if (filter !== "") {
-            data = data.filter((el) => {
-              return el["User Name"].toLowerCase().includes(filter.toLowerCase());
-            });
-          }
+  const updateData = async (filter) => {
+    let data = await (await fetch('./data.json')).json();
 
-          let html = "";
-          data.forEach((d, i) => {
-            html += `
-              <tr>
-  <th>${i + 1}</th>
-  <td>${d?.["User Email"] || "-"}</td>
-  <td>${d?.["User Name"] || "-"}</td>
-  <td><a href="${d?.["Google Cloud Skills Boost Profile URL"]}" target="_blank">Profile</a></td>
-  <td>${d?.["Access Code Redemption Status"] === "Yes" ? "✅" : "❌"}</td>
-  <td>${d?.["Profile URL Status"]=== "All Good" ? "✅" : "❌" }</td>
-  <td>${d?.["Milestone Earned"] || "-"}</td>
-  <td>${d?.["# of Skill Badges Completed"] || "0"}</td>
-<!--  <td>${d?.["Names of Completed Skill Badges"] || "-"}</td>-->
-  <td>${d?.["# of Arcade Games Completed"] || "0"}</td>
-<!--  <td>${d?.["Names of Completed Arcade Games"] || "-"}</td>-->
-  <td>${d?.["# of Trivia Games Completed"] || "0"}</td>
-<!--  <td>${d?.["Names of Completed Trivia Games"] || "-"}</td>-->
-  <td>${d?.["# of Lab-free Courses Completed"] || "0"}</td>
-<!--  <td>${d?.["Names of Completed Lab-free Courses"] || "-"}</td>-->
-</tr>
+    // Calculate total score and add as a new property
+    data.forEach((d) => {
+      d.totalScore =
+        parseInt(d["# of Skill Badges Completed"] || 0) +
+        parseInt(d["# of Arcade Games Completed"] || 0) +
+        parseInt(d["# of Trivia Games Completed"] || 0) +
+        parseInt(d["# of Lab-free Courses Completed"] || 0);
+    });
 
-            `;
-          });
-          document.getElementById("gccp_body").innerHTML = html;
-        };
+    // Apply search filter
+    if (filter !== "") {
+      data = data.filter((el) => {
+        return el["User Name"].toLowerCase().includes(filter.toLowerCase());
+      });
+    }
 
-        updateData("");
+    // Top 10 leaderboard
+    const top10 = [...data]
+      .sort((a, b) => b.totalScore - a.totalScore)
+      .slice(0, 10);
 
-        const input = document.getElementById('input');
-        input.addEventListener('input', () => {
-          updateData(input.value);
-        });
-      </script>
+    let top10Html = `
+      <h3 class="text-center mb-4">🏆 Top 10 Leaderboard</h3>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Total Score</th>
+            <th>Skill</th>
+            <th>Arcade</th>
+            <th>Trivia</th>
+            <th>Lab-Free</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    top10.forEach((d, i) => {
+      top10Html += `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${d["User Name"]}</td>
+          <td>${d["User Email"]}</td>
+          <td><b>${d.totalScore}</b></td>
+          <td>${d["# of Skill Badges Completed"]}</td>
+          <td>${d["# of Arcade Games Completed"]}</td>
+          <td>${d["# of Trivia Games Completed"]}</td>
+          <td>${d["# of Lab-free Courses Completed"]}</td>
+        </tr>
+      `;
+    });
+
+    top10Html += `</tbody></table>`;
+    document.querySelector(".gccp_data").insertAdjacentHTML("beforeend", top10Html);
+
+    // Full data table
+    let html = "";
+    data.forEach((d, i) => {
+      html += `
+        <tr>
+          <th>${i + 1}</th>
+          <td>${d?.["User Email"] || "-"}</td>
+          <td>${d?.["User Name"] || "-"}</td>
+          <td><a href="${d?.["Google Cloud Skills Boost Profile URL"]}" target="_blank">Profile</a></td>
+          <td>${d?.["Access Code Redemption Status"] === "Yes" ? "✅" : "❌"}</td>
+          <td>${d?.["Profile URL Status"] === "All Good" ? "✅" : "❌"}</td>
+          <td>${d?.["Milestone Earned"] || "-"}</td>
+          <td>${d?.["# of Skill Badges Completed"] || "0"}</td>
+          <td>${d?.["# of Arcade Games Completed"] || "0"}</td>
+          <td>${d?.["# of Trivia Games Completed"] || "0"}</td>
+          <td>${d?.["# of Lab-free Courses Completed"] || "0"}</td>
+        </tr>
+      `;
+    });
+
+    document.getElementById("gccp_body").innerHTML = html;
+  };
+
+  updateData("");
+
+  const input = document.getElementById("input");
+  input.addEventListener("input", () => {
+    document.querySelector(".gccp_data").innerHTML = `
+      <h4><img src="assets/cloudLg.png" alt="gdsc" class="adypulg"> Google Cloud <b>Arcade Program</b> Leaderboard</h4>
+      <h4>Prasad V Potluri Siddhartha Institute Of Technology</h4>
+      <h5>If any issue arises, raise a ticket to <a>dscsupport@qwiklabs.com</a></h5>
+      <div class="custom-menu__right w-75 mx-auto">
+        <i class="fa-solid fa-magnifying-glass icon"></i>
+        <input id="input" class="p-2 w-100" type="text">
+      </div>
+    `;
+    updateData(input.value);
+  });
+</script>
+
     </div>
 
     <footer class="text-center text-white" style="background-color: #f1f1f1;">
