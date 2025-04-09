@@ -53,15 +53,16 @@
             <th>Name</th>
             <th>Profile URL</th>
             <th>Redemption Status</th>
+            <th>Profile Status</th>
             <th>Milestone Earned</th>
             <th># Skill Badges</th>
-            <th>Skill Badge Names</th>
+<!--            <th>Skill Badge Names</th>-->
             <th># Arcade Games</th>
-            <th>Arcade Game Names</th>
+<!--            <th>Arcade Game Names</th>-->
             <th># Trivia Games</th>
-            <th>Trivia Game Names</th>
+<!--            <th>Trivia Game Names</th>-->
             <th># Lab-Free Courses</th>
-            <th>Lab-Free Course Names</th>
+<!--            <th>Lab-Free Course Names</th>-->
           </tr>
         </thead>
         <tbody id="gccp_body"></tbody>
@@ -80,21 +81,23 @@
           data.forEach((d, i) => {
             html += `
               <tr>
-                <th>${i + 1}</th>
-                <td>${d["User Email"]}</td>
-                <td>${d["User Name"]}</td>
-                <td><a href="${d["Google Cloud Skills Boost Profile URL"]}" target="_blank">Profile</a></td>
-                <td>${d["Access Code Redemption Status"] === "Yes" ? "✅" : "❌"}</td>
-                <td>${d["Milestone Earned"] || "-"}</td>
-                <td>${d["# of Skill Badges Completed"]}</td>
-                <td>${d["Names of Completed Skill Badges"]}</td>
-                <td>${d["# of Arcade Games Completed"]}</td>
-                <td>${d["Names of Completed Arcade Games"]}</td>
-                <td>${d["# of Trivia Games Completed"]}</td>
-                <td>${d["Names of Completed Trivia Games"]}</td>
-                <td>${d["# of Lab-free Courses Completed"]}</td>
-                <td>${d["Names of Completed Lab-free Courses"]}</td>
-              </tr>
+  <th>${i + 1}</th>
+  <td>${d?.["User Email"] || "-"}</td>
+  <td>${d?.["User Name"] || "-"}</td>
+  <td><a href="${d?.["Google Cloud Skills Boost Profile URL"]}" target="_blank">Profile</a></td>
+  <td>${d?.["Access Code Redemption Status"] === "Yes" ? "✅" : "❌"}</td>
+  <td>${d?.["Profile URL Status"]=== "All Good" ? "✅" : "❌" }</td>
+  <td>${d?.["Milestone Earned"] || "-"}</td>
+  <td>${d?.["# of Skill Badges Completed"] || "0"}</td>
+<!--  <td>${d?.["Names of Completed Skill Badges"] || "-"}</td>-->
+  <td>${d?.["# of Arcade Games Completed"] || "0"}</td>
+<!--  <td>${d?.["Names of Completed Arcade Games"] || "-"}</td>-->
+  <td>${d?.["# of Trivia Games Completed"] || "0"}</td>
+<!--  <td>${d?.["Names of Completed Trivia Games"] || "-"}</td>-->
+  <td>${d?.["# of Lab-free Courses Completed"] || "0"}</td>
+<!--  <td>${d?.["Names of Completed Lab-free Courses"] || "-"}</td>-->
+</tr>
+
             `;
           });
           document.getElementById("gccp_body").innerHTML = html;
