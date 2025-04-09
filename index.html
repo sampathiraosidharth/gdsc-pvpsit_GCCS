@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>GDSC PVPSIT Google Cloud Arcade Leaderboard</title>
+    <meta name="title" content="GDSC PVPSIT Google Cloud Arcade Leaderboard">
+    <meta name="description" content="Leaderboard for Google Cloud Arcade program by GDSC PVPSIT.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gdscpvpsit.github.io">
+    <meta property="og:title" content="Google Cloud Arcade Leaderboard">
+    <meta property="og:description" content="Track your progress in the Google Cloud Arcade Program by GDSC PVPSIT.">
+    <meta property="og:image" content="{% static 'assets/GDSC logo PVPSIT.png' %}">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/gdscfavi.png">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a href="https://gdsc.community.dev/prasad-v-potluri-siddhartha-institute-of-technology-vijayawada/">
+          <img src="assets/GDSC logo PVPSIT.png" alt="" class="d-inline-block align-text-top">
+        </a>
+      </div>
+    </nav>
+
+    <div class="container" style="margin-top: 150px; padding-bottom: 40px;">
+      <div class="gccp_data text-center my-5">
+        <h4><img src="assets/cloudLg.png" alt="gdsc" class="adypulg"> Google Cloud <b>Arcade Program</b> Leaderboard</h4>
+        <h4>Prasad V Potluri Siddhartha Institute Of Technology</h4>
+        <h5>If any issue arises, raise a ticket to <a>dscsupport@qwiklabs.com</a></h5>
+
+        <div class="custom-menu__right w-75 mx-auto">
+          <i class="fa-solid fa-magnifying-glass icon"></i>
+          <input id="input" class="p-2 w-100" type="text">
+        </div>
+      </div>
+
+      <table class="table table-hover fa-border">
+        <thead>
+          <tr>
+            <th>Sr. No.</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Profile URL</th>
+            <th>Redemption Status</th>
+            <th>Milestone Earned</th>
+            <th># Skill Badges</th>
+            <th>Skill Badge Names</th>
+            <th># Arcade Games</th>
+            <th>Arcade Game Names</th>
+            <th># Trivia Games</th>
+            <th>Trivia Game Names</th>
+            <th># Lab-Free Courses</th>
+            <th>Lab-Free Course Names</th>
+          </tr>
+        </thead>
+        <tbody id="gccp_body"></tbody>
+      </table>
+
+      <script>
+        const updateData = async (filter) => {
+          let data = await (await fetch('./data.json')).json();
+          if (filter !== "") {
+            data = data.filter((el) => {
+              return el["User Name"].toLowerCase().includes(filter.toLowerCase());
+            });
+          }
+
+          let html = "";
+          data.forEach((d, i) => {
+            html += `
+              <tr>
+                <th>${i + 1}</th>
+                <td>${d["User Email"]}</td>
+                <td>${d["User Name"]}</td>
+                <td><a href="${d["Google Cloud Skills Boost Profile URL"]}" target="_blank">Profile</a></td>
+                <td>${d["Access Code Redemption Status"] === "Yes" ? "✅" : "❌"}</td>
+                <td>${d["Milestone Earned"] || "-"}</td>
+                <td>${d["# of Skill Badges Completed"]}</td>
+                <td>${d["Names of Completed Skill Badges"]}</td>
+                <td>${d["# of Arcade Games Completed"]}</td>
+                <td>${d["Names of Completed Arcade Games"]}</td>
+                <td>${d["# of Trivia Games Completed"]}</td>
+                <td>${d["Names of Completed Trivia Games"]}</td>
+                <td>${d["# of Lab-free Courses Completed"]}</td>
+                <td>${d["Names of Completed Lab-free Courses"]}</td>
+              </tr>
+            `;
+          });
+          document.getElementById("gccp_body").innerHTML = html;
+        };
+
+        updateData("");
+
+        const input = document.getElementById('input');
+        input.addEventListener('input', () => {
+          updateData(input.value);
+        });
+      </script>
+    </div>
+
+    <footer class="text-center text-white" style="background-color: #f1f1f1;">
+      <div class="container pt-2">
+        <section class="mb-4">
+          <a href="https://www.instagram.com/gdsc.pvpsit/" target="_blank" class="btn btn-lg text-dark m-1"><i class="fab fa-instagram"></i></a>
+          <a href="https://discord.gg/9hBEkW6" target="_blank" class="btn btn-lg text-dark m-1"><i class="fab fa-discord"></i></a>
+          <a href="https://www.linkedin.com/in/gdsc-pvpsit/" target="_blank" class="btn btn-lg text-dark m-1"><i class="fab fa-linkedin"></i></a>
+        </section>
+      </div>
+
+      <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        <a class="text-dark">&copy; GDSC - PVPSIT Team</a>
+      </div>
+    </footer>
+  </body>
+</html>
