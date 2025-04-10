@@ -4,20 +4,17 @@
     <title>GDSC PVPSIT Google Cloud Arcade Leaderboard</title>
     <meta name="title" content="GDSC PVPSIT Google Cloud Arcade Leaderboard">
     <meta name="description" content="Leaderboard for Google Cloud Arcade program by GDSC PVPSIT.">
-
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://gdscpvpsit.github.io">
     <meta property="og:title" content="Google Cloud Arcade Leaderboard">
     <meta property="og:description" content="Track your progress in the Google Cloud Arcade Program by GDSC PVPSIT.">
-    <meta property="og:image" content="{% static 'assets/GDSC logo PVPSIT.png' %}">
-
+    <meta property="og:image" content="assets/GDSC logo PVPSIT.png">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
@@ -41,134 +38,86 @@
 
         <div class="custom-menu__right w-75 mx-auto">
           <i class="fa-solid fa-magnifying-glass icon"></i>
-          <input id="input" class="p-2 w-100" type="text">
+          <input id="input" class="p-2 w-100" type="text" placeholder="Search by name">
         </div>
       </div>
 
-      <table class="table table-hover fa-border">
-        <thead>
-          <tr>
-            <th>Sr. No.</th>
-            <th>Email</th>
-            <th>Name</th>
-            <th>Profile URL</th>
-            <th>Redemption Status</th>
-            <th>Profile Status</th>
-            <th>Milestone Earned</th>
-            <th># Skill Badges</th>
-<!--            <th>Skill Badge Names</th>-->
-            <th># Arcade Games</th>
-<!--            <th>Arcade Game Names</th>-->
-            <th># Trivia Games</th>
-<!--            <th>Trivia Game Names</th>-->
-            <th># Lab-Free Courses</th>
-<!--            <th>Lab-Free Course Names</th>-->
-          </tr>
-        </thead>
-        <tbody id="gccp_body"></tbody>
-      </table>
+      <div class="row">
+        <div class="col-md-9">
+          <div id="top10_leaderboard" class="my-5"></div>
 
-      <script>
-  const updateData = async (filter) => {
-    let data = await (await fetch('./data.json')).json();
+          <table class="table table-hover fa-border">
+            <thead>
+              <tr>
+                <th>Sr. No.</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Profile URL</th>
+                <th>Redemption</th>
+                <th>Status</th>
+                <th>Milestone</th>
+                <th>Skill Badges</th>
+                <th>Arcade</th>
+                <th>Trivia</th>
+                <th>Lab-Free</th>
+                <th>Points</th>
+              </tr>
+            </thead>
+            <tbody id="gccp_body"></tbody>
+          </table>
+<!--          <button class="btn btn-success my-3" onclick="exportLeaderboard()">Export Leaderboard</button>-->
+        </div>
 
-    // Calculate total score and add as a new property
-    data.forEach((d) => {
-      d.totalScore =
-        parseInt(d["# of Skill Badges Completed"] || 0) +
-        parseInt(d["# of Arcade Games Completed"] || 0) +
-        parseInt(d["# of Trivia Games Completed"] || 0) +
-        parseInt(d["# of Lab-free Courses Completed"] || 0);
-    });
+        <div class="col-md-3">
+  <div class="card p-3 shadow-sm border-0" style="background: linear-gradient(135deg, #f8f9fa, #e3f2fd); border-radius: 15px;">
+    <h5 class="text-center mb-3" style="color: #0d6efd;">
+      <i class="fas fa-trophy me-2"></i>Points System
+    </h5>
+    <ul class="list-unstyled ps-3">
+      <li class="mb-2">
+        <i class="fas fa-gamepad text-success me-2"></i>
+        <strong>+1</strong> pt for each <span class="text-dark">Arcade</span> / <span class="text-dark">Trivia</span> Game
+      </li>
+      <li class="mb-2">
+        <i class="fas fa-certificate text-warning me-2"></i>
+        <strong>+1</strong> pt for every <strong>2</strong> Skill Badges
+      </li>
+      <li class="mb-2">
+        <i class="fas fa-star text-primary me-2"></i>
+        <strong>+5</strong> Bonus pts — <span class="text-muted">Milestone 1</span>
+      </li>
+      <li class="mb-2">
+        <i class="fas fa-star text-info me-2"></i>
+        <strong>+10</strong> Bonus pts — <span class="text-muted">Milestone 2</span>
+      </li>
+      <li class="mb-2">
+        <i class="fas fa-star text-success me-2"></i>
+        <strong>+15</strong> Bonus pts — <span class="text-muted">Milestone 3</span>
+      </li>
+      <li class="mb-2">
+        <i class="fas fa-crown text-danger me-2"></i>
+        <strong>+20</strong> Bonus pts — <span class="fw-bold text-danger">Ultimate</span>
+      </li>
+    </ul>
+    <div class="text-center mt-3">
+      <span class="badge bg-success">Maximize your score!</span>
+    </div>
+  </div>
+</div>
 
-    // Apply search filter
-    if (filter !== "") {
-      data = data.filter((el) => {
-        return el["User Name"].toLowerCase().includes(filter.toLowerCase());
-      });
-    }
-
-    // Top 10 leaderboard
-    const top10 = [...data]
-      .sort((a, b) => b.totalScore - a.totalScore)
-      .slice(0, 10);
-
-    let top10Html = `
-      <h3 class="text-center mb-4">🏆 Top 10 Leaderboard</h3>
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Total Score</th>
-            <th>Skill</th>
-            <th>Arcade</th>
-            <th>Trivia</th>
-            <th>Lab-Free</th>
-          </tr>
-        </thead>
-        <tbody>
-    `;
-
-    top10.forEach((d, i) => {
-      top10Html += `
-        <tr>
-          <td>${i + 1}</td>
-          <td>${d["User Name"]}</td>
-          <td>${d["User Email"]}</td>
-          <td><b>${d.totalScore}</b></td>
-          <td>${d["# of Skill Badges Completed"]}</td>
-          <td>${d["# of Arcade Games Completed"]}</td>
-          <td>${d["# of Trivia Games Completed"]}</td>
-          <td>${d["# of Lab-free Courses Completed"]}</td>
-        </tr>
-      `;
-    });
-
-    top10Html += `</tbody></table>`;
-    document.querySelector(".gccp_data").insertAdjacentHTML("beforeend", top10Html);
-
-    // Full data table
-    let html = "";
-    data.forEach((d, i) => {
-      html += `
-        <tr>
-          <th>${i + 1}</th>
-          <td>${d?.["User Email"] || "-"}</td>
-          <td>${d?.["User Name"] || "-"}</td>
-          <td><a href="${d?.["Google Cloud Skills Boost Profile URL"]}" target="_blank">Profile</a></td>
-          <td>${d?.["Access Code Redemption Status"] === "Yes" ? "✅" : "❌"}</td>
-          <td>${d?.["Profile URL Status"] === "All Good" ? "✅" : "❌"}</td>
-          <td>${d?.["Milestone Earned"] || "-"}</td>
-          <td>${d?.["# of Skill Badges Completed"] || "0"}</td>
-          <td>${d?.["# of Arcade Games Completed"] || "0"}</td>
-          <td>${d?.["# of Trivia Games Completed"] || "0"}</td>
-          <td>${d?.["# of Lab-free Courses Completed"] || "0"}</td>
-        </tr>
-      `;
-    });
-
-    document.getElementById("gccp_body").innerHTML = html;
-  };
-
-  updateData("");
-
-  const input = document.getElementById("input");
-  input.addEventListener("input", () => {
-    document.querySelector(".gccp_data").innerHTML = `
-      <h4><img src="assets/cloudLg.png" alt="gdsc" class="adypulg"> Google Cloud <b>Arcade Program</b> Leaderboard</h4>
-      <h4>Prasad V Potluri Siddhartha Institute Of Technology</h4>
-      <h5>If any issue arises, raise a ticket to <a>dscsupport@qwiklabs.com</a></h5>
-      <div class="custom-menu__right w-75 mx-auto">
-        <i class="fa-solid fa-magnifying-glass icon"></i>
-        <input id="input" class="p-2 w-100" type="text">
       </div>
-    `;
-    updateData(input.value);
-  });
-</script>
+    </div>
 
+    <div class="modal fade" id="breakdownModal" tabindex="-1" aria-labelledby="breakdownModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="breakdownModalLabel">Points Breakdown</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="breakdownContent"></div>
+        </div>
+      </div>
     </div>
 
     <footer class="text-center text-white" style="background-color: #f1f1f1;">
@@ -179,10 +128,103 @@
           <a href="https://www.linkedin.com/in/gdsc-pvpsit/" target="_blank" class="btn btn-lg text-dark m-1"><i class="fab fa-linkedin"></i></a>
         </section>
       </div>
-
       <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
         <a class="text-dark">&copy; GDSC - PVPSIT Team</a>
       </div>
     </footer>
+
+    <script>
+      const calculateArcadePoints = (d) => {
+        const skill = parseInt(d["# of Skill Badges Completed"] || 0);
+        const arcade = parseInt(d["# of Arcade Games Completed"] || 0);
+        const trivia = parseInt(d["# of Trivia Games Completed"] || 0);
+        const labFree = parseInt(d["# of Lab-free Courses Completed"] || 0);
+        let points = arcade + trivia + Math.floor(skill / 2);
+        let milestone = "";
+
+        if (arcade >= 10 && trivia >= 8 && skill >= 44 && labFree >= 16) {
+          points += 20; milestone = "Ultimate";
+        } else if (arcade >= 8 && trivia >= 7 && skill >= 30 && labFree >= 12) {
+          points += 15; milestone = "M3";
+        } else if (arcade >= 6 && trivia >= 6 && skill >= 20 && labFree >= 8) {
+          points += 10; milestone = "M2";
+        } else if (arcade >= 4 && trivia >= 4 && skill >= 10 && labFree >= 4) {
+          points += 5; milestone = "M1";
+        }
+
+        d.arcadePoints = points;
+        d.milestone = milestone;
+        return points;
+      };
+
+      const updateData = async (filter = "") => {
+        let data = await (await fetch('./data.json')).json();
+        data.forEach(calculateArcadePoints);
+        if (filter.trim() !== "")
+          data = data.filter(d => d["User Name"].toLowerCase().includes(filter.toLowerCase()));
+
+        const top10 = [...data].sort((a, b) => b.arcadePoints - a.arcadePoints).slice(0, 10);
+        let top10Html = `<h3 class="text-center mb-4">🏆 Top 10 Leaderboard</h3><table class="table table-bordered"><thead><tr><th>Rank</th><th>Name</th><th>Points</th><th>Milestone</th></tr></thead><tbody>`;
+        top10.forEach((d, i) => {
+          top10Html += `<tr><td>${i + 1}</td><td>${d["User Name"]}</td><td><b>${d.arcadePoints}</b></td><td>${d.milestone || "-"}</td></tr>`;
+        });
+        top10Html += "</tbody></table>";
+        document.getElementById("top10_leaderboard").innerHTML = top10Html;
+
+        let html = "";
+        data.forEach((d, i) => {
+          html += `<tr>
+            <th>${i + 1}</th>
+            <td>${d["User Email"]}</td>
+            <td>${d["User Name"]}</td>
+            <td><a href="${d["Google Cloud Skills Boost Profile URL"]}" target="_blank">Profile</a></td>
+            <td>${d["Access Code Redemption Status"] === "Yes" ? "✅" : "❌"}</td>
+            <td>${d["Profile URL Status"] === "All Good" ? "✅" : "❌"}</td>
+            <td><span class="badge bg-primary">${d.milestone || "-"}</span></td>
+            <td>${d["# of Skill Badges Completed"]}</td>
+            <td>${d["# of Arcade Games Completed"]}</td>
+            <td>${d["# of Trivia Games Completed"]}</td>
+            <td>${d["# of Lab-free Courses Completed"]}</td>
+            <td><button class="btn btn-sm btn-outline-info" onclick="showBreakdown(${d.arcadePoints}, ${d["# of Skill Badges Completed"]}, ${d["# of Arcade Games Completed"]}, ${d["# of Trivia Games Completed"]}, ${d["# of Lab-free Courses Completed"]}, '${d.milestone || "None"}')">${d.arcadePoints}</button></td>
+          </tr>`;
+        });
+        document.getElementById("gccp_body").innerHTML = html;
+      };
+
+      function showBreakdown(points, skill, arcade, trivia, labFree, milestone) {
+        const base = arcade + trivia + Math.floor(skill / 2);
+        const bonus = points - base;
+        document.getElementById("breakdownContent").innerHTML = `
+          <p><strong>Skill Badges:</strong> ${skill} → ${Math.floor(skill / 2)} pts</p>
+          <p><strong>Arcade Games:</strong> ${arcade} pts</p>
+          <p><strong>Trivia Games:</strong> ${trivia} pts</p>
+          <p><strong>Lab-Free Courses:</strong> ${labFree}</p>
+          <p><strong>Milestone:</strong> ${milestone} → +${bonus} pts</p>
+          <hr>
+          <p><strong>Total Points:</strong> ${points}</p>
+        `;
+        new bootstrap.Modal(document.getElementById("breakdownModal")).show();
+      }
+
+<!--      function exportLeaderboard() {-->
+<!--        const rows = document.querySelectorAll("table tbody tr");-->
+<!--        let csv = [["Sr.No","Email","Name","Profile","Redemption","Status","Milestone","Skill","Arcade","Trivia","LabFree","Points"]];-->
+<!--        rows.forEach(row => {-->
+<!--          const cols = Array.from(row.querySelectorAll("td, th")).map(td => td.innerText);-->
+<!--          csv.push(cols);-->
+<!--        });-->
+<!--        const csvContent = "data:text/csv;charset=utf-8," + csv.map(e => e.join(",")).join("\n");-->
+<!--        const encodedUri = encodeURI(csvContent);-->
+<!--        const link = document.createElement("a");-->
+<!--        link.setAttribute("href", encodedUri);-->
+<!--        link.setAttribute("download", "leaderboard.csv");-->
+<!--        document.body.appendChild(link);-->
+<!--        link.click();-->
+<!--        link.remove();-->
+<!--      }-->
+
+      updateData();
+      document.getElementById("input").addEventListener("input", e => updateData(e.target.value));
+    </script>
   </body>
 </html>
