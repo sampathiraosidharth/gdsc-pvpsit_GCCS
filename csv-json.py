@@ -20,8 +20,8 @@ def csv_to_json(input_file, output_file):
         json.dump(data, jsonfile, indent=4)
 
 # Replace 'input_file.csv' with the path to your CSV file
-input_file = ('GCAF25C1-IN-9SW-T22 [09 Apr].csv')
+input_file = ('GCAF25C1-IN-9SW-T22 [10 Apr].csv')
 # Replace 'output_file.json' with the desired path for your output JSON file
-output_file = f'{1}.json'
+output_file = f'data.json'
 
 csv_to_json(input_file, output_file)
