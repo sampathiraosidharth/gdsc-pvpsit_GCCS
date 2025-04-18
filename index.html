@@ -34,103 +34,170 @@
       <div class="container" style="margin-top: 150px; padding-bottom: 40px;">
 
   <!-- Important Links Section -->
+<div class="gccp_data text-center my-5">
   <div class="gccp_data text-center my-5">
-      <div class="gccp_data text-center my-5">
-        <h4><img src="assets/cloudLg.png" alt="gdsc" class="adypulg"> Google Cloud <b>Arcade Program</b> Leaderboard</h4>
-        <h4>Prasad V Potluri Siddhartha Institute Of Technology</h4>
-        <h5>If any issue arises, raise a ticket to <a>dscsupport@qwiklabs.com</a></h5>
+    <h4>
+      <img src="assets/cloudLg.png" alt="gdsc" class="adypulg">
+      Google Cloud <b>Arcade Program</b> Leaderboard
+    </h4>
+    <h4>Prasad V Potluri Siddhartha Institute Of Technology</h4>
+    <h5>If any issue arises, raise a ticket to <a>dscsupport@qwiklabs.com</a></h5>
 
-
-
-        <div class="custom-menu__right w-75 mx-auto">
-          <i class="fa-solid fa-magnifying-glass icon"></i>
-          <input id="input" class="p-2 w-100" type="text" placeholder="Search by name">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-9">
-          <div id="top10_leaderboard" class="my-5"></div>
-
-          <table class="table table-hover fa-border">
-            <thead>
-              <tr>
-                <th>Sr. No.</th>
-                <th>Email</th>
-                <th>Name</th>
-                <th>Profile URL</th>
-                <th>Redemption</th>
-                <th>Status</th>
-                <th>Milestone</th>
-                <th>Skill Badges</th>
-                <th>Arcade</th>
-                <th>Trivia</th>
-                <th>Lab-Free</th>
-                <th>Points</th>
-              </tr>
-            </thead>
-            <tbody id="gccp_body"></tbody>
-          </table>
-<!--          <button class="btn btn-success my-3" onclick="exportLeaderboard()">Export Leaderboard</button>-->
-        </div>
-
-        <div class="col-md-3">
-
-  <div class="card shadow-sm border-0" style="background: linear-gradient(135deg, #f8f9fa, #e3f2fd); border-radius: 15px;">
-    <div class="mb-4 text-center">
-  <h5><i class="fas fa-link me-2 text-primary"></i>Important Link</h5>
-  <a href="https://youtu.be/66Le8c0_Zx0" target="_blank" style="text-decoration: none;">
-    <div class="card mx-auto shadow-sm mb-3" style="max-width: 500px; border-radius: 15px;">
-      <img
-        src="https://img.youtube.com/vi/66Le8c0_Zx0/maxresdefault.jpg"
-        class="card-img-top"
-        alt="Arcade Facilitator Video"
-        style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
-      >
-      <div class="card-body">
-        <h6 class="card-title">How To Claim ₹50k Worth Google Cloud Credits (600 Credits) + First Lab Guide | Step-by-Step Tutorial</h6>
-      </div>
+    <div class="custom-menu__right w-75 mx-auto">
+      <i class="fa-solid fa-magnifying-glass icon"></i>
+      <input id="input" class="p-2 w-100" type="text" placeholder="Search by name">
     </div>
-  </a>
-</div>
-    <h5 class="text-center mb-1" style="color: #0d6efd;">
-      <i class="fas fa-trophy me-2"></i>Points System
-    </h5>
-    <ul class="list-unstyled ps-3">
-      <li class="mb-2">
-        <i class="fas fa-gamepad text-success me-2"></i>
-        <strong>+1</strong> pt for each <span class="text-dark">Arcade</span> / <span class="text-dark">Trivia</span> Game
-      </li>
-      <li class="mb-2">
-        <i class="fas fa-certificate text-warning me-2"></i>
-        <strong>+1</strong> pt for every <strong>2</strong> Skill Badges
-      </li>
-      <li class="mb-2">
-        <i class="fas fa-star text-primary me-2"></i>
-        <strong>+5</strong> Bonus pts — <span class="text-muted">Milestone 1</span>
-      </li>
-      <li class="mb-2">
-        <i class="fas fa-star text-info me-2"></i>
-        <strong>+10</strong> Bonus pts — <span class="text-muted">Milestone 2</span>
-      </li>
-      <li class="mb-2">
-        <i class="fas fa-star text-success me-2"></i>
-        <strong>+15</strong> Bonus pts — <span class="text-muted">Milestone 3</span>
-      </li>
-      <li class="mb-2">
-        <i class="fas fa-crown text-danger me-2"></i>
-        <strong>+20</strong> Bonus pts — <span class="fw-bold text-danger">Ultimate</span>
-      </li>
-    </ul>
-<!--    <div class="text-center mt-3">-->
-<!--      <span class="badge bg-success">Maximize your score!</span>-->
-<!--    </div>-->
   </div>
 
-</div>
+  <!-- 🎥 Video Grid Section -->
+  <h5 class="mt-5"><i class="fas fa-link me-2 text-primary"></i>Important Links</h5>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+    <!-- Video Card 1 -->
+    <div class="col">
+      <a href="https://youtu.be/66Le8c0_Zx0" target="_blank" style="text-decoration: none;">
+        <div class="card shadow-sm h-100" style="border-radius: 15px;">
+          <img
+            src="https://img.youtube.com/vi/66Le8c0_Zx0/maxresdefault.jpg"
+            class="card-img-top"
+            alt="Arcade Facilitator Video"
+            style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
+          >
+          <div class="card-body">
+            <h6 class="card-title">How To Claim ₹50k Worth Google Cloud Credits (600 Credits) + First Lab Guide | Step-by-Step Tutorial</h6>
+          </div>
+        </div>
+      </a>
+    </div>
 
+    <!-- Duplicate below blocks for more videos -->
+    <!--
+    <div class="col">
+      <a href="YOUR_VIDEO_URL" target="_blank" style="text-decoration: none;">
+        <div class="card shadow-sm h-100" style="border-radius: 15px;">
+          <img
+            src="YOUR_THUMBNAIL_URL"
+            class="card-img-top"
+            alt="Video Title"
+            style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
+          >
+          <div class="card-body">
+            <h6 class="card-title">Video Title Here</h6>
+          </div>
+        </div>
+      </a>
+    </div>
+    -->
+    <div class="col">
+      <a href="https://youtu.be/jpPpITm1mSY" target="_blank" style="text-decoration: none;">
+        <div class="card shadow-sm h-100" style="border-radius: 15px;">
+          <img
+            src="https://img.youtube.com/vi/jpPpITm1mSY/maxresdefault.jpg"
+            class="card-img-top"
+            alt="Google Cloud Arcade How to enrol in Lab Guide | Step-by-Step Tutorial"
+            style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
+          >
+          <div class="card-body">
+            <h6 class="card-title">Google Cloud Arcade How to enrol in Lab Guide | Step-by-Step Tutorial</h6>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col">
+      <a href="https://youtu.be/n_JWgU0ruCQ" target="_blank" style="text-decoration: none;">
+        <div class="card shadow-sm h-100" style="border-radius: 15px;">
+          <img
+            src="https://img.youtube.com/vi/n_JWgU0ruCQ/maxresdefault.jpg"
+            class="card-img-top"
+            alt="GSP249 Creating a Gmail Add-on Google Cloud Arcade Lab 01 Guide | Step-by-Step Tutorial"
+            style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
+          >
+          <div class="card-body">
+            <h6 class="card-title">GSP249 Creating a Gmail Add-on Google Cloud Arcade Lab 01 Guide | Step-by-Step Tutorial</h6>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col">
+      <a href="https://youtu.be/iX4gVebG81k" target="_blank" style="text-decoration: none;">
+        <div class="card shadow-sm h-100" style="border-radius: 15px;">
+          <img
+            src="https://img.youtube.com/vi/iX4gVebG81k/maxresdefault.jpg"
+            class="card-img-top"
+            alt="GSP602 HTTP Google Cloud Run Functions in Go Google Cloud Arcade Lab 2 Guide | Step-by-Step Tutorial"
+            style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
+          >
+          <div class="card-body">
+            <h6 class="card-title">GSP602 HTTP Google Cloud Run Functions in Go Google Cloud Arcade Lab 2 Guide | Step-by-Step Tutorial</h6>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 🏆 Leaderboard Section -->
+  <div class="row">
+    <div class="col-md-9">
+      <div id="top10_leaderboard" class="my-5"></div>
+
+      <table class="table table-hover fa-border">
+        <thead>
+          <tr>
+            <th>Sr. No.</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Profile URL</th>
+            <th>Redemption</th>
+            <th>Status</th>
+            <th>Milestone</th>
+            <th>Skill Badges</th>
+            <th>Arcade</th>
+            <th>Trivia</th>
+            <th>Lab-Free</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody id="gccp_body"></tbody>
+      </table>
+    </div>
+
+    <!-- 📊 Points System Sidebar -->
+    <div class="col-md-3">
+      <div class="card shadow-sm border-0" style="background: linear-gradient(135deg, #f8f9fa, #e3f2fd); border-radius: 15px;">
+        <div class="mb-4 text-center"></div>
+        <h5 class="text-center mb-1" style="color: #0d6efd;">
+          <i class="fas fa-trophy me-2"></i>Points System
+        </h5>
+        <ul class="list-unstyled ps-3">
+          <li class="mb-2">
+            <i class="fas fa-gamepad text-success me-2"></i>
+            <strong>+1</strong> pt for each <span class="text-dark">Arcade</span> / <span class="text-dark">Trivia</span> Game
+          </li>
+          <li class="mb-2">
+            <i class="fas fa-certificate text-warning me-2"></i>
+            <strong>+1</strong> pt for every <strong>2</strong> Skill Badges
+          </li>
+          <li class="mb-2">
+            <i class="fas fa-star text-primary me-2"></i>
+            <strong>+5</strong> Bonus pts — <span class="text-muted">Milestone 1</span>
+          </li>
+          <li class="mb-2">
+            <i class="fas fa-star text-info me-2"></i>
+            <strong>+10</strong> Bonus pts — <span class="text-muted">Milestone 2</span>
+          </li>
+          <li class="mb-2">
+            <i class="fas fa-star text-success me-2"></i>
+            <strong>+15</strong> Bonus pts — <span class="text-muted">Milestone 3</span>
+          </li>
+          <li class="mb-2">
+            <i class="fas fa-crown text-danger me-2"></i>
+            <strong>+20</strong> Bonus pts — <span class="fw-bold text-danger">Ultimate</span>
+          </li>
+        </ul>
       </div>
     </div>
+  </div>
+</div>
+
 
 
     <div class="modal fade" id="breakdownModal" tabindex="-1" aria-labelledby="breakdownModalLabel" aria-hidden="true">
